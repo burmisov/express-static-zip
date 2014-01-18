@@ -17,6 +17,8 @@ module.exports = function (pathToZip) {
 	});	
 
 	return function (req, res, next) {
+		if (req.method != 'GET' && req.method != 'HEAD') return next();
+		
 		return next();
 	};
 };
