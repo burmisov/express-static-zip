@@ -21,7 +21,8 @@
     "url": "https://github.com/burmisov/express-static-zip/issues"
   },
   "dependencies": {
-    "zip": "~1.1.1"
+    "zip": "~1.1.1",
+    "mime": "~1.2.11"
   },
   "devDependencies": {
     "express": "~3.4.8",
