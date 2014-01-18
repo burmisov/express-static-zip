@@ -4,7 +4,7 @@
   "description": "Serve static content out of a ZIP without unpacking.",
   "main": "index.js",
   "scripts": {
-    "test": "node test/test.js"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
