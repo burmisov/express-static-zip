@@ -18,7 +18,14 @@ module.exports = function (pathToZip) {
 
 	return function (req, res, next) {
 		if (req.method != 'GET' && req.method != 'HEAD') return next();
-		
+
+		// Strip the leading '/'
+		var name = req.path.slice(1);
+		// Search for path in the directory
+		if (zipDir.hasOwnProperty(name)) {
+			
+		}
+
 		return next();
 	};
 };
