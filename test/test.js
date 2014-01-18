@@ -50,4 +50,27 @@ describe('Serving files from root of zip on root url path', function () {
 				done();
 			});	
 	});
+
+	it('should correctly serve an image file from zip', function (done) {
+		request(app)
+			.get('/some-image.png')
+			.expect(200)
+			.expect('Content-type', 'image/png')
+			.end(function (err, res) {
+				if (err) return done(err);
+				done();
+			});
+	});
+
+	it('should correctly serve file on non-empty path', function (done) {
+		request(app)
+			.get(otherUrlPath + '/some-file.txt')
+			.expect(200)
+			.expect('Content-type', 'text/plain')
+			.expect('File 1 content')
+			.end(function (err, res) {
+				if (err) return done(err);
+				done();
+			});	
+	});
 });
