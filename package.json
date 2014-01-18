@@ -3,6 +3,12 @@
   "version": "0.0.1",
   "description": "Serve static content out of a ZIP without unpacking.",
   "main": "index.js",
+  "directories": [
+    "test"
+  ],
+  "engines": {
+    "node" : ">=0.10.3 <0.12"
+  },
   "scripts": {
     "test": "mocha"
   },
@@ -15,7 +21,7 @@
     "static",
     "zip"
   ],
-  "author": "Sergey Burmisov (burmisov@informatica.ru)",
+  "author": "Sergey Burmisov (http://github.com/burmisov)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/burmisov/express-static-zip/issues"
