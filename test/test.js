@@ -1,7 +1,6 @@
 var testZipPath = 'testdata.zip';
 var testZipReferencePath = 'testdata/';
 
-var fs = require('express');
 var path = require('path');
 var express = require('express');
 var request = require('supertest');
@@ -21,7 +20,7 @@ describe('Serving files from root of zip on root url path', function () {
 		request(app)
 			.get('/some-file.txt')
 			.expect(200)
-			.expect('Content-type','text/plain')
+			.expect('Content-type', 'text/plain')
 			.expect('File 1 content')
 			.end(function (err, res) {
 				if (err) return done(err);
@@ -43,7 +42,7 @@ describe('Serving files from root of zip on root url path', function () {
 		request(app)
 			.get('/a-folder/file-in-a-folder.txt')
 			.expect(200)
-			.expect('Content-type','text/plain')
+			.expect('Content-type', 'text/plain')
 			.expect('File-in-a-folder content.')
 			.end(function (err, res) {
 				if (err) return done(err);
