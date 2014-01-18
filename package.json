@@ -19,5 +19,11 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/burmisov/express-static-zip/issues"
+  },
+  "dependencies": {
+    "zip": "~1.1.1"
+  },
+  "devDependencies": {
+    "express": "~3.4.8"
   }
 }
