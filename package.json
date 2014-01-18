@@ -4,7 +4,7 @@
   "description": "Serve static content out of a ZIP without unpacking.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/test.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "zip": "~1.1.1"
   },
   "devDependencies": {
-    "express": "~3.4.8"
+    "express": "~3.4.8",
+    "supertest": "~0.9.0"
   }
 }
