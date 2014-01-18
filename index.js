@@ -15,6 +15,10 @@ module.exports = function (pathToZip) {
 			zipDir[entry.getName()] = entry;	
 		}		
 	});	
+	
+	// Dispose of temporary data, which is potentially big
+	delete data;
+	delete reader;
 
 	return function (req, res, next) {
 		if (req.method != 'GET' && req.method != 'HEAD') return next();
