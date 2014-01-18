@@ -12,7 +12,7 @@ module.exports = function (pathToZip) {
 	reader.forEach(function (entry) {
 		// Only take file entries (ignore directories)
 		if (entry.isFile()) {
-			this.zipDir[entry.getName()] = entry;	
+			zipDir[entry.getName()] = entry;	
 		}		
 	});	
 
