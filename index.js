@@ -32,12 +32,13 @@ module.exports = function (pathToZip) {
 			var zipEntry = zipDir[name];
 			var entryData = zipEntry.getData();
 
+			// Set Content-Type and decode buffer if needed
 			var contentType = mime.lookup(name);
-			if(contentType != 'application/octet-stream') {
+			if (contentType != 'application/octet-stream') {
 				res.set('Content-type', contentType);
 				var charSet = mime.charsets.lookup(contentType);
-				if(charSet) {
-					entryData = entryData.toString(mime.charsets.lookup(contentType));
+				if (charSet) {
+					entryData = entryData.toString(charSet);
 				}
 			}
 
