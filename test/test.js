@@ -123,4 +123,22 @@ describe('Serving files from root of zip on root url path', function () {
 				done();
 			});
 	});
+
+	it('should throw on incorrect "zipRoot" option', function () {
+		(function () {
+			var mw = staticZip(path.join(__dirname, testZipPath), {zipRoot: true});
+		}).should.throw();
+	});
+
+	it('should throw on incorrect "skip" option', function () {
+		(function () {
+			var mw = staticZip(path.join(__dirname, testZipPath), {skip: "/some-file.txt"});
+		}).should.throw();
+	});
+
+	it('should throw on incorrect "skip" option array item', function () {
+		(function () {
+			var mw = staticZip(path.join(__dirname, testZipPath), {skip: ["/some-file.txt", false]});
+		}).should.throw();
+	});
 });
