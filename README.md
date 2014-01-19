@@ -39,8 +39,11 @@ app.listen(process.env.PORT || 3000);
 
 ```js
 app.use(staticZip('./biglib.zip', {
-  zipRoot: "a-folder/";  // Default: ""
-                         // Use a directory inside ZIP file as the root
+  zipRoot: "a-folder/";           // Use a directory inside ZIP file as
+                                  // the root (Default: "")
+
+  skip: ["file-in-a-folder.txt"]  // Do not server specified files (paths
+                                  // relative to zipRoot, default: [])
 }));
 ```
 
