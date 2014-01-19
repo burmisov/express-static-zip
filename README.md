@@ -39,8 +39,8 @@ app.listen(process.env.PORT || 3000);
 
 ```js
 app.use(staticZip('./biglib.zip', {
-  zipRoot = "a-folder/";  // Default: ""
-                          // Use a directory inside ZIP file as the root
+  zipRoot: "a-folder/";  // Default: ""
+                         // Use a directory inside ZIP file as the root
 }));
 ```
 
