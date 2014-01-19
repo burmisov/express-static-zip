@@ -5,6 +5,7 @@ var path = require('path');
 var express = require('express');
 var request = require('supertest');
 var staticZip = require('../index.js');
+var should = require('should');
 
 var app = express();
 
@@ -71,5 +72,11 @@ describe('Serving files from root of zip on root url path', function () {
 				if (err) return done(err);
 				done();
 			});	
+	});
+
+	it('should throw trying to load non-existent zip file', function () {
+		(function () {
+			var mw = staticZip('non-existent-zip.zip');
+		}).should.throw();
 	});
 });
