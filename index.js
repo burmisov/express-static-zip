@@ -7,6 +7,8 @@ module.exports = function (pathToZip, options) {
 	options = options || {};
 	// Set path inside zip file as root path
 	options.zipRoot = options.zipRoot || "";
+	// Do not serve files with full paths in this array (relative to zipRoot)
+	options.skip = options.skip || [];
 
 	// Zip contents registry; keys are zip entry names
 	var zipDir = {};
@@ -22,7 +24,9 @@ module.exports = function (pathToZip, options) {
 			// Only take files in zipRoot path
 			if (options.zipRoot === entryName.slice(0, zipRootLen)) {
 				entryRelPath = entryName.slice(zipRootLen);
-				zipDir[entryRelPath] = entry;
+				//Skip entries from the "skip" list
+				if (options.skip.indexOf(entryRelPath) === -1)
+					zipDir[entryRelPath] = entry;
 			}
 		}		
 	});	
