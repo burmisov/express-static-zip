@@ -3,17 +3,27 @@ var fs = require('fs');
 var zip = require('zip');
 var mime = require('mime');
 
-module.exports = function (pathToZip) {
+module.exports = function (pathToZip, options) {
+	options = options || {};
+	// Set path inside zip file as root path
+	options.zipRoot = options.zipRoot || "";
+
 	// Zip contents registry; keys are zip entry names
 	var zipDir = {};
 
 	// Read zip contents and populate the registry
 	var data = fs.readFileSync(pathToZip);
 	var reader = zip.Reader(data);
+	var zipRootLen = options.zipRoot.length;
 	reader.forEach(function (entry) {
 		// Only take file entries (ignore directories)
 		if (entry.isFile()) {
-			zipDir[entry.getName()] = entry;	
+			var entryName = entry.getName();
+			// Only take files in zipRoot path
+			if (options.zipRoot === entryName.slice(0, zipRootLen)) {
+				entryRelPath = entryName.slice(zipRootLen);
+				zipDir[entryRelPath] = entry;
+			}
 		}		
 	});	
 	
