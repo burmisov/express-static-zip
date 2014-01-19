@@ -6,8 +6,8 @@ Serve static files out of a ZIP without unpacking.
 ## About
 
   Adding client-side dependency libraries to the repository is a good practice, but
-  there are huge ones like [dojo]('http://dojotoolkit.org') and some proprietary ones like
-  [Arcgis JS API]('http://js.arcgis.com') containing thousands of small files, making it a
+  there are huge ones like [dojo](http://dojotoolkit.org) and some proprietary ones like
+  [Arcgis JS API](http://js.arcgis.com) containing thousands of small files, making it a
   mess. You either go with them, making the repo some ten times slower, or use some 
   (probably internally) hosted ones, messing with versions and switching paths.
   
