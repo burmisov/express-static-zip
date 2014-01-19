@@ -35,6 +35,15 @@ app.listen(process.env.PORT || 3000);
 
   Now you are free to `GET` _/some/files/inside/zip.txt_
 
+## Options
+
+```js
+app.use(staticZip('./biglib.zip', {
+  zipRoot = "a-folder/";  // Default: ""
+                          // Use a directory inside ZIP file as the root
+}));
+```
+
 ## Additional info
 
   Zip compressed content is loaded to memory synchronously at startup. It doesn't take long, some
