@@ -16,6 +16,7 @@ var staticZipRoot = staticZip(path.join(__dirname, testZipPath));
 app.use(staticZipRoot);
 app.use(otherUrlPath, staticZipRoot);
 app.use(otherUrlPath + otherUrlPath, staticZip(path.join(__dirname, testZipPath), {zipRoot: "a-folder/"}))
+app.use(otherUrlPath + otherUrlPath + otherUrlPath, staticZip(path.join(__dirname, testZipPath), {skip: ["a-folder/file-in-a-folder.txt"]}));
 
 describe('Serving files from root of zip on root url path', function () {
 	it('should correctly serve file matching zip content', function (done) {
@@ -109,6 +110,16 @@ describe('Serving files from root of zip on root url path', function () {
 			.expect(404)
 			.end(function (err, res) {
 				if (err) throw done(err);
+				done();
+			});
+	});
+
+	it('should obey the "skip" option', function (done) {
+		request(app)
+			.get(otherUrlPath + otherUrlPath + otherUrlPath + '/a-folder/file-in-a-folder.txt')
+			.expect(404)
+			.end(function (err, res) {
+				if (err) return done(err);
 				done();
 			});
 	});
