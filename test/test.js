@@ -15,7 +15,7 @@ var staticZipRoot = staticZip(path.join(__dirname, testZipPath));
 
 app.use(staticZipRoot);
 app.use(otherUrlPath, staticZipRoot);
-app.use(otherUrlPath + otherUrlPath, staticZip(path.join(__dirname, testZipPath), {zipRoot: "a-folder/"}))
+app.use(otherUrlPath + otherUrlPath, staticZip(path.join(__dirname, testZipPath), {zipRoot: "a-folder/"}));
 app.use(otherUrlPath + otherUrlPath + otherUrlPath, staticZip(path.join(__dirname, testZipPath), {skip: ["a-folder/file-in-a-folder.txt"]}));
 
 describe('Serving files from root of zip on root url path', function () {
