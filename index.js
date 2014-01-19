@@ -10,6 +10,19 @@ module.exports = function (pathToZip, options) {
 	// Do not serve files with full paths in this array (relative to zipRoot)
 	options.skip = options.skip || [];
 
+	// Check option types
+	if (!(typeof(options.zipRoot) === 'string')) {
+		throw new Error('Option "zipRoot" should be a string');
+	}
+	if (!(Array.isArray(options.skip))) {
+		throw new Error('Option "skip" should be an array of strings');
+	}
+	for (var key in options.skip) {
+		if (!(typeof(options.skip[key]) === 'string')) {
+			throw new Error('Option "skip" should be an array of strings');
+		}
+	}
+
 	// Zip contents registry; keys are zip entry names
 	var zipDir = {};
 
