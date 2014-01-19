@@ -44,9 +44,9 @@ module.exports = function (pathToZip, options) {
 		}		
 	});	
 	
-	// Dispose of temporary data, which is potentially big
-	delete data;
-	delete reader;
+	// Let GC dispose of temporary data, which is potentially big
+	data = null;
+	reader = null;
 
 	return function (req, res, next) {
 		if (req.method != 'GET' && req.method != 'HEAD') return next();
