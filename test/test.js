@@ -1,5 +1,6 @@
 var testZipPath = 'testdata.zip';
 var testZipReferencePath = 'testdata/';
+var otherUrlPath = '/some/other/lib/path';
 
 var path = require('path');
 var express = require('express');
@@ -9,14 +10,16 @@ var should = require('should');
 
 var app = express();
 
-var otherUrlPath = '/some/other/lib/path';
+var zipFullPath = path.join(__dirname, testZipPath);
+var otherUrlPath2 = otherUrlPath + otherUrlPath;
+var otherUrlPath3 = otherUrlPath2 + otherUrlPath;
 
-var staticZipRoot = staticZip(path.join(__dirname, testZipPath));
+var staticZipRoot = staticZip(zipFullPath);
 
 app.use(staticZipRoot);
 app.use(otherUrlPath, staticZipRoot);
-app.use(otherUrlPath + otherUrlPath, staticZip(path.join(__dirname, testZipPath), {zipRoot: "a-folder/"}));
-app.use(otherUrlPath + otherUrlPath + otherUrlPath, staticZip(path.join(__dirname, testZipPath), {skip: ["a-folder/file-in-a-folder.txt"]}));
+app.use(otherUrlPath2, staticZip(zipFullPath, {zipRoot: "a-folder/"}));
+app.use(otherUrlPath3, staticZip(zipFullPath, {skip: ["a-folder/file-in-a-folder.txt"]}));
 
 describe('Serving files from root of zip on root url path', function () {
 	it('serves file matching zip content', function (done) {
@@ -78,7 +81,7 @@ describe('Serving files from root of zip on root url path', function () {
 
 	it('obeys the "zipRoot" option', function (done) {
 		request(app)
-			.get(otherUrlPath + otherUrlPath + '/file-in-a-folder.txt')
+			.get(otherUrlPath2 + '/file-in-a-folder.txt')
 			.expect(200)
 			.expect('Content-type', 'text/plain')
 			.expect('File-in-a-folder content.')
@@ -116,7 +119,7 @@ describe('Serving files from root of zip on root url path', function () {
 
 	it('obeys the "skip" option', function (done) {
 		request(app)
-			.get(otherUrlPath + otherUrlPath + otherUrlPath + '/a-folder/file-in-a-folder.txt')
+			.get(otherUrlPath3 + '/a-folder/file-in-a-folder.txt')
 			.expect(404)
 			.end(function (err, res) {
 				if (err) return done(err);
@@ -126,19 +129,19 @@ describe('Serving files from root of zip on root url path', function () {
 
 	it('throws on incorrect "zipRoot" option', function () {
 		(function () {
-			var mw = staticZip(path.join(__dirname, testZipPath), {zipRoot: true});
+			var mw = staticZip(zipFullPath, {zipRoot: true});
 		}).should.throw();
 	});
 
 	it('throws on incorrect "skip" option', function () {
 		(function () {
-			var mw = staticZip(path.join(__dirname, testZipPath), {skip: "/some-file.txt"});
+			var mw = staticZip(zipFullPath, {skip: "/some-file.txt"});
 		}).should.throw();
 	});
 
 	it('throws on incorrect "skip" option array item', function () {
 		(function () {
-			var mw = staticZip(path.join(__dirname, testZipPath), {skip: ["/some-file.txt", false]});
+			var mw = staticZip(zipFullPath, {skip: ["/some-file.txt", false]});
 		}).should.throw();
 	});
 });
