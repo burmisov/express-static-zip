@@ -53,3 +53,7 @@ app.use(staticZip('./biglib.zip', {
   50-300ms for a 20Mb JS lib with some 15k files.
   
   Files are uncompressed and cached in-memory upon request.
+
+## Tests
+
+  Rather full coverage tests are in the `test/` directory. Install dev dependencies and use `mocha`.
