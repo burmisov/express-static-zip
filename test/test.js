@@ -19,7 +19,7 @@ app.use(otherUrlPath + otherUrlPath, staticZip(path.join(__dirname, testZipPath)
 app.use(otherUrlPath + otherUrlPath + otherUrlPath, staticZip(path.join(__dirname, testZipPath), {skip: ["a-folder/file-in-a-folder.txt"]}));
 
 describe('Serving files from root of zip on root url path', function () {
-	it('should correctly serve file matching zip content', function (done) {
+	it('serves file matching zip content', function (done) {
 		request(app)
 			.get('/some-file.txt')
 			.expect(200)
@@ -31,7 +31,7 @@ describe('Serving files from root of zip on root url path', function () {
 			});	
 	});
 
-	it('should return 404 when file path does not match zip content', function (done) {
+	it('responds 404 when file path does not match zip content', function (done) {
 		request(app)
 			.get('/some-missing-file.txt')
 			.expect(404)
@@ -41,7 +41,7 @@ describe('Serving files from root of zip on root url path', function () {
 			});	
 	});
 
-	it('should correctly serve file from zip subfolder', function (done) {
+	it('serves file from zip subfolder', function (done) {
 		request(app)
 			.get('/a-folder/file-in-a-folder.txt')
 			.expect(200)
@@ -53,7 +53,7 @@ describe('Serving files from root of zip on root url path', function () {
 			});	
 	});
 
-	it('should correctly serve an image file from zip', function (done) {
+	it('serves an image file from zip', function (done) {
 		request(app)
 			.get('/some-image.png')
 			.expect(200)
@@ -64,7 +64,7 @@ describe('Serving files from root of zip on root url path', function () {
 			});
 	});
 
-	it('should correctly serve file on non-empty path', function (done) {
+	it('serves file on non-empty mount path', function (done) {
 		request(app)
 			.get(otherUrlPath + '/some-file.txt')
 			.expect(200)
@@ -76,7 +76,7 @@ describe('Serving files from root of zip on root url path', function () {
 			});	
 	});
 
-	it('should serve directory from zip as a root dir with "zipRoot" option', function (done) {
+	it('obeys the "zipRoot" option', function (done) {
 		request(app)
 			.get(otherUrlPath + otherUrlPath + '/file-in-a-folder.txt')
 			.expect(200)
@@ -88,13 +88,13 @@ describe('Serving files from root of zip on root url path', function () {
 			});	
 	});
 
-	it('should throw trying to load non-existent zip file', function () {
+	it('throws on non-existent zip file', function () {
 		(function () {
 			var mw = staticZip('non-existent-zip.zip');
 		}).should.throw();
 	});
 
-	it('should not respond to a POST request', function (done) {
+	it('doesnt respond to a POST request', function (done) {
 		request(app)
 			.post('/some-file.txt')
 			.expect(404)
@@ -104,7 +104,7 @@ describe('Serving files from root of zip on root url path', function () {
 			});
 	});
 
-	it('should not respond to a PUT request', function (done) {
+	it('doesnt respond to a PUT request', function (done) {
 		request(app)
 			.put('/some-file.txt')
 			.expect(404)
@@ -114,7 +114,7 @@ describe('Serving files from root of zip on root url path', function () {
 			});
 	});
 
-	it('should obey the "skip" option', function (done) {
+	it('obeys the "skip" option', function (done) {
 		request(app)
 			.get(otherUrlPath + otherUrlPath + otherUrlPath + '/a-folder/file-in-a-folder.txt')
 			.expect(404)
@@ -124,19 +124,19 @@ describe('Serving files from root of zip on root url path', function () {
 			});
 	});
 
-	it('should throw on incorrect "zipRoot" option', function () {
+	it('throws on incorrect "zipRoot" option', function () {
 		(function () {
 			var mw = staticZip(path.join(__dirname, testZipPath), {zipRoot: true});
 		}).should.throw();
 	});
 
-	it('should throw on incorrect "skip" option', function () {
+	it('throws on incorrect "skip" option', function () {
 		(function () {
 			var mw = staticZip(path.join(__dirname, testZipPath), {skip: "/some-file.txt"});
 		}).should.throw();
 	});
 
-	it('should throw on incorrect "skip" option array item', function () {
+	it('throws on incorrect "skip" option array item', function () {
 		(function () {
 			var mw = staticZip(path.join(__dirname, testZipPath), {skip: ["/some-file.txt", false]});
 		}).should.throw();
