@@ -1,6 +1,6 @@
 {
   "name": "express-static-zip",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Serve static content out of a ZIP without unpacking.",
   "main": "index.js",
   "directories": [
