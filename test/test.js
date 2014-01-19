@@ -92,4 +92,24 @@ describe('Serving files from root of zip on root url path', function () {
 			var mw = staticZip('non-existent-zip.zip');
 		}).should.throw();
 	});
+
+	it('should not respond to a POST request', function (done) {
+		request(app)
+			.post('/some-file.txt')
+			.expect(404)
+			.end(function (err, res) {
+				if (err) throw done(err);
+				done();
+			});
+	});
+
+	it('should not respond to a PUT request', function (done) {
+		request(app)
+			.put('/some-file.txt')
+			.expect(404)
+			.end(function (err, res) {
+				if (err) throw done(err);
+				done();
+			});
+	});
 });
