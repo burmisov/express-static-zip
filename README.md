@@ -5,15 +5,16 @@ Serve static files out of a ZIP without unpacking.
 
 ## About
 
-  Adding client-side dependency libraries to the repository is a good practice, but
+  Keeping client-side dependency libraries in the repository is a good practice, but
   there are huge ones like [dojo](http://dojotoolkit.org) and some proprietary ones like
   [Arcgis JS API](http://js.arcgis.com) containing thousands of small files, making it a
-  mess. You either go with them, making the repo some ten times slower, or use some 
-  (probably internally) hosted ones, messing with versions and switching paths.
+  mess. You either go with them, making the repo at least ten times slower, or use the
+  (sometimes internally) hosted ones, messing with versions and switching paths.
   
-  This module provides means to serving such libraries or arbitrary static file packages
-  right out of a ZIP without unpacking. Zipped library goes well with the repos even being
-  several tens of megabytes in size. Zipped library doesn't pollute your repo with its contents.
+  This module provides a means to serving such libraries or arbitrary static file packages
+  right out of a ZIP without unpacking. Zipped library goes well with the repos even when
+  they are several tens of megabytes in size. Zipped library doesn't pollute your repo with 
+  its contents.
 
   You can add a classic `express.static` for production environment, with an unzip deployment
   script.
@@ -49,11 +50,11 @@ app.use(staticZip('./biglib.zip', {
 
 ## Additional info
 
-  Zip compressed content is loaded to memory synchronously at startup. It doesn't take long, some
-  50-300ms for a 20Mb JS lib with some 15k files.
+  Zip compressed content is loaded into memory synchronously at startup. It doesn't take long, some
+  50-300ms for a 20Mb JS lib with ~15k files.
   
-  Files are uncompressed and cached in-memory upon request.
+  Files are decompressed and cached in-memory upon request.
 
 ## Tests
 
-  Rather full coverage tests are in the `test/` directory. Install dev dependencies and use `mocha`.
+  Tests are in the `test/` directory. Install dev dependencies and use `mocha`. Coverage is rather full.
