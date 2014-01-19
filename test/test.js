@@ -99,7 +99,7 @@ describe('Serving files from root of zip on root url path', function () {
 			.post('/some-file.txt')
 			.expect(404)
 			.end(function (err, res) {
-				if (err) throw done(err);
+				if (err) return done(err);
 				done();
 			});
 	});
@@ -109,7 +109,7 @@ describe('Serving files from root of zip on root url path', function () {
 			.put('/some-file.txt')
 			.expect(404)
 			.end(function (err, res) {
-				if (err) throw done(err);
+				if (err) return done(err);
 				done();
 			});
 	});
