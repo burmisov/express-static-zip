@@ -15,6 +15,7 @@ var staticZipRoot = staticZip(path.join(__dirname, testZipPath));
 
 app.use(staticZipRoot);
 app.use(otherUrlPath, staticZipRoot);
+app.use(otherUrlPath + otherUrlPath, staticZip(path.join(__dirname, testZipPath), {zipRoot: "a-folder/"}))
 
 describe('Serving files from root of zip on root url path', function () {
 	it('should correctly serve file matching zip content', function (done) {
@@ -68,6 +69,18 @@ describe('Serving files from root of zip on root url path', function () {
 			.expect(200)
 			.expect('Content-type', 'text/plain')
 			.expect('File 1 content')
+			.end(function (err, res) {
+				if (err) return done(err);
+				done();
+			});	
+	});
+
+	it('should serve directory from zip as a root dir with "zipRoot" option', function (done) {
+		request(app)
+			.get(otherUrlPath + otherUrlPath + '/file-in-a-folder.txt')
+			.expect(200)
+			.expect('Content-type', 'text/plain')
+			.expect('File-in-a-folder content.')
 			.end(function (err, res) {
 				if (err) return done(err);
 				done();
