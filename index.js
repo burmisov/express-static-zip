@@ -11,14 +11,14 @@ module.exports = function (pathToZip, options) {
 	options.skip = options.skip || [];
 
 	// Check option types
-	if (!(typeof(options.zipRoot) === 'string')) {
+	if (typeof(options.zipRoot) !== 'string') {
 		throw new Error('Option "zipRoot" should be a string');
 	}
 	if (!(Array.isArray(options.skip))) {
 		throw new Error('Option "skip" should be an array of strings');
 	}
 	for (var key in options.skip) {
-		if (!(typeof(options.skip[key]) === 'string')) {
+		if (typeof(options.skip[key]) !== 'string') {
 			throw new Error('Option "skip" should be an array of strings');
 		}
 	}
