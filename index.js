@@ -48,11 +48,31 @@ module.exports = function (pathToZip, options) {
 	data = null;
 	reader = null;
 
+    var prepFilePath = function (originUrl, filePath) {
+        try {
+            var arr = originUrl.split('/');
+            var fileName = arr[arr.length - 1];
+
+            if (fileName.indexOf('?') != -1) {
+                fileName = fileName.substring(0, fileName.indexOf('?'));
+            }
+
+            var arr2 = filePath.split('/');
+            arr2[arr2.length - 1] = fileName;
+            var resultStr = arr2.join('/');
+            return resultStr.slice(1);
+        }
+        catch (err) {
+            console.log('err prepFilePath: ', err);
+            return filePath.slice(1);
+        }
+    };
+
 	return function (req, res, next) {
 		if (req.method != 'GET' && req.method != 'HEAD') return next();
 
 		// Strip the leading '/'
-		var name = req.path.slice(1);
+		var name = prepFilePath(req.originalUrl, req.path);
 		// Search for path in the directory
 		if (zipDir.hasOwnProperty(name)) {
 			// If found, respond with uncompressed file data
