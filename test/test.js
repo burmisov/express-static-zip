@@ -26,7 +26,7 @@ describe('Serving files from root of zip on root url path', function () {
 		request(app)
 			.get('/some-file.txt')
 			.expect(200)
-			.expect('Content-type', 'text/plain')
+			.expect('Content-type', /text\/plain/)
 			.expect('File 1 content')
 			.end(function (err, res) {
 				if (err) return done(err);
@@ -48,7 +48,7 @@ describe('Serving files from root of zip on root url path', function () {
 		request(app)
 			.get('/a-folder/file-in-a-folder.txt')
 			.expect(200)
-			.expect('Content-type', 'text/plain')
+			.expect('Content-type', /text\/plain/)
 			.expect('File-in-a-folder content.')
 			.end(function (err, res) {
 				if (err) return done(err);
@@ -71,7 +71,7 @@ describe('Serving files from root of zip on root url path', function () {
 		request(app)
 			.get(otherUrlPath + '/some-file.txt')
 			.expect(200)
-			.expect('Content-type', 'text/plain')
+			.expect('Content-type', /text\/plain/)
 			.expect('File 1 content')
 			.end(function (err, res) {
 				if (err) return done(err);
@@ -83,7 +83,7 @@ describe('Serving files from root of zip on root url path', function () {
 		request(app)
 			.get(otherUrlPath2 + '/file-in-a-folder.txt')
 			.expect(200)
-			.expect('Content-type', 'text/plain')
+			.expect('Content-type', /text\/plain/)
 			.expect('File-in-a-folder content.')
 			.end(function (err, res) {
 				if (err) return done(err);

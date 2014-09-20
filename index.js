@@ -89,7 +89,7 @@ module.exports = function (pathToZip, options) {
 				}
 			}
 
-			res.send(200, entryData);
+			res.status(200).send(entryData);
 		} else {
 			return next();
 		}
