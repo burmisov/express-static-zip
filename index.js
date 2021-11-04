@@ -17,11 +17,11 @@ module.exports = function (pathToZip, options) {
 	if (!(Array.isArray(options.skip))) {
 		throw new Error('Option "skip" should be an array of strings');
 	}
-	for (var key in options.skip) {
-		if (typeof(options.skip[key]) !== 'string') {
+	options.skip.forEach(item => {
+		if (typeof(item) !== 'string') {
 			throw new Error('Option "skip" should be an array of strings');
 		}
-	}
+	});
 
 	// Zip contents registry; keys are zip entry names
 	var zipDir = {};
@@ -42,7 +42,10 @@ module.exports = function (pathToZip, options) {
 					zipDir[entryRelPath] = entry;
 			}
 		}		
-	});	
+	});
+
+	if (Object.keys(zipDir).length === 0)
+		throw new Error("No files were found! Please check your zipRoot");
 	
 	// Let GC dispose of temporary data, which is potentially big
 	data = null;
@@ -70,7 +73,6 @@ module.exports = function (pathToZip, options) {
 
 	return function (req, res, next) {
 		if (req.method != 'GET' && req.method != 'HEAD') return next();
-
 		// Strip the leading '/'
 		var name = prepFilePath(req.originalUrl, req.path);
 		// Search for path in the directory
@@ -88,7 +90,6 @@ module.exports = function (pathToZip, options) {
 					entryData = entryData.toString(charSet);
 				}
 			}
-
 			res.status(200).send(entryData);
 		} else {
 			return next();
