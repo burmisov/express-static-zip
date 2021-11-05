@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "zip": "1.2.X",
-    "mime": "1.2.X"
+    "mime": "2.4.4"
   },
   "devDependencies": {
     "express": "4.9.X",
